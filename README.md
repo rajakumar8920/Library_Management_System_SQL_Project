@@ -2,7 +2,9 @@
 ## Project Overview
 
 **Project Title :** Library Management System
+
 **Level :** Intermediate
+
 **Database :** `Library_System_db`
 
 This project showcases a Library Management System built using SQL. It covers table creation, data management, CRUD operations, and advanced queries, highlighting skills in database design and SQL programming.
