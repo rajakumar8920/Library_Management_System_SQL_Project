@@ -3,7 +3,7 @@
 
 **Project Title** : Library Management System                                                                                                                                                                       
 **Level** : Intermediate                                                                                                                                                                                            
-**Database** : `Library_System_db`
+**Database** : `library_system_db`
 
 This project showcases a Library Management System built using SQL. It covers table creation, data management, CRUD operations, and advanced queries, highlighting skills in database design and SQL programming.
 
@@ -18,8 +18,10 @@ This project showcases a Library Management System built using SQL. It covers ta
 
 ### 1. Database Setup
 
-- **Database Creation**: Created a database named `library_db`.
+- **Database Creation**: Created a database named `library_system_db`.
 - **Table Creation**: Created tables for branches, employees, members, books, issued status, and return status. Each table includes relevant columns and relationships.
+
+  
 
 
 
