@@ -91,7 +91,7 @@ ON ist.issued_member_id=m.member_id
 GROUP BY 1,2
 HAVING COUNT(ist.issued_id) > 2;
 ```
-**Task 2: Create Summary Tables: Used CTAS to generate new tables based on query results - each book and total book_issued_cnt**
+**Task 2: Create Summary Tables: Used CTAS to generate new tables based on query results - each book and total book_issued_count**
 ```sql
 CREATE TABLE book_issued_count AS (
 	SELECT b.isbn,b.book_title,
@@ -154,7 +154,38 @@ ON ist.issued_book_isbn=b.isbn
 LEFT JOIN return_status rs
 ON ist.issued_id=rs.issued_id
 WHERE return_id IS NULL
-AND (CURRENT_DATE-issued_date) >= 30;
+AND (CURRENT_DATE-issued_date) > 30;
+```
+**Task 8: Update Book Status on Return**  
+Write a query to update the status of books in the books table to "Yes" when they are returned (based on entries in the return_status table).
+```sql
+CREATE OR REPLACE PROCEDURE update_book_status(p_return_id VARCHAR(15),
+											   p_issued_id VARCHAR(15),
+											   p_book_quality VARCHAR(15))
+LANGUAGE plpgsql
+AS $$
+DECLARE
+		v_isbn VARCHAR(30);
+		
+BEGIN
+	INSERT INTO return_status(return_id,issued_id,return_date,book_quality)
+	VALUES (p_return_id,p_issued_id,CURRENT_DATE,p_book_quality);
+
+	SELECT issued_book_isbn
+			INTO v_isbn
+	FROM issued_status
+	WHERE issued_id=p_issued_id;
+
+	UPDATE books
+	SET status='yes'
+	WHERE isbn=v_isbn;
+
+	RAISE NOTICE 'Status is successfully updated for issued_id : %',p_issued_id;
+
+END;
+$$
+
+CALL update_book_status('RS165','IS136','Good');
 ```
 
 
