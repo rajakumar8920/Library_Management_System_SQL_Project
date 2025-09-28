@@ -197,6 +197,52 @@ WHERE issued_id='IS136';
 
 CALL update_book_status('RS165','IS136','Good');
 ```
+**Task 9: Branch Performance Report**  
+Create a query that generates a performance report for each branch, showing the number of books issued, the number of books returned, and the total revenue generated from book rentals.
+```sql
+CREATE TABLE branch_performance AS (
+		SELECT branch_id, COUNT(ist.issued_id) AS no_of_books_issued, 
+				COUNT(rs.return_id) AS no_of_books_returned, 
+				SUM(b1.rental_price) AS total_revenue
+		FROM branch_ b
+		JOIN issued_status ist
+		ON b.issued_emp_id=ist.issued_emp_id
+		LEFT JOIN return_status rs
+		ON ist.issued_id=rs.issued_id
+		LEFT JOIN books b1
+		ON b1.isbn=ist.issued_book_isbn
+		GROUP BY branch_id
+		ORDER BY branch_id
+);
+
+SELECT * FROM branch_performance;
+```
+**Task 10: CTAS: Create a Table of Active Members**  
+Use the CREATE TABLE AS (CTAS) statement to create a new table active_members containing members who have issued at least one book in the last 2 months.
+```sql
+CREATE TABLE active_members AS (
+SELECT * FROM members
+WHERE member_id IN (
+			SELECT issued_member_id
+			FROM issued_status
+			WHERE issued_date >= (CURRENT_DATE - INTERVAL '6 months'))
+);
+
+SELECT * FROM active_members;
+```
+**Task 11: Find Employees with the Most Book Issues Processed**  
+Write a query to find the top 3 employees who have processed the most book issues. Display the employee name, number of books processed, and their branch.
+```sql
+SELECT e.emp_id, e.emp_name, 
+		COUNT(ist.issued_id) AS books_processed, e.branch_id
+FROM employees e
+JOIN issued_status ist
+ON e.emp_id=ist.issued_emp_id
+GROUP BY 1,2,4
+ORDER BY books_processed DESC
+LIMIT 3;
+```
+
 
 
 
