@@ -5,14 +5,10 @@
 **Level** : Intermediate                                                                                                                                                                                            
 **Database** : `library_system_db`
 
-This project showcases a Library Management System built using SQL. It covers table creation, data management, CRUD operations, and advanced queries, highlighting skills in database design and SQL programming.
-
 ## Objectives
 
-1. **Set up the Library Management System Database**: Create and populate the database with tables for branches, employees, members, books, issued status, and return status.
-2. **CRUD Operations**: Perform Create, Read, Update, and Delete operations on the data.
-3. **CTAS (Create Table As Select)**: Utilize CTAS to create new tables based on query results.
-4. **Advanced SQL Queries**: Develop complex queries to analyze and retrieve specific data.
+I have built a Library Management System using SQL where I applied advanced concepts like CTAS, stored procedures, subqueries, joins, and other SQL functions. Through this project, I wanted to show my ability to design databases, manage data effectively, and solve real-world problems with SQL.
+
 
 ## Project Structure
 
