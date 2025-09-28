@@ -7,8 +7,7 @@
 
 ## Objectives
 
-I have built a Library Management System using SQL where I applied advanced concepts like CTAS, stored procedures, subqueries, joins, and other SQL functions. Through this project, I wanted to show my ability to design databases, manage data effectively, and solve real-world problems with SQL.
-
+I have built a Library Management System using SQL where I solved many SQL problems and performed data analysis on the complete system. In this project, I applied advanced concepts like CTAS, stored procedures, subqueries, joins, and other SQL functions to showcase my skills in database design, data handling, and real-world problem solving. All the SQL codes for the problems I solved are provided below for reference
 
 ## Project Structure
 
