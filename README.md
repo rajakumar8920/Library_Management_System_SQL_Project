@@ -91,6 +91,18 @@ ON ist.issued_member_id=m.member_id
 GROUP BY 1,2
 HAVING COUNT(ist.issued_id) > 2;
 ```
+**Task 6: Create Summary Tables: Used CTAS to generate new tables based on query results - each book and total book_issued_cnt**
+```sql
+CREATE TABLE book_issued_count AS (
+	SELECT b.isbn,b.book_title,
+			COUNT(ist.issued_id) AS book_issued_count
+	FROM books b
+	JOIN issued_status ist
+	ON ist.issued_book_isbn=b.isbn
+	GROUP BY 1,2
+);
 
+SELECT * FROM book_issued_count;
+```
 
 
