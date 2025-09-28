@@ -91,7 +91,7 @@ ON ist.issued_member_id=m.member_id
 GROUP BY 1,2
 HAVING COUNT(ist.issued_id) > 2;
 ```
-**Task 6: Create Summary Tables: Used CTAS to generate new tables based on query results - each book and total book_issued_cnt**
+**Task 2: Create Summary Tables: Used CTAS to generate new tables based on query results - each book and total book_issued_cnt**
 ```sql
 CREATE TABLE book_issued_count AS (
 	SELECT b.isbn,b.book_title,
@@ -104,5 +104,54 @@ CREATE TABLE book_issued_count AS (
 
 SELECT * FROM book_issued_count;
 ```
+**Task 3: Find Total Rental Income by Category from Books Issued**:
+```sql
+SELECT b.category, SUM(b.rental_price) AS total_rental_income
+FROM books b
+JOIN issued_status ist
+ON ist.issued_book_isbn=b.isbn
+GROUP BY category;
+```
+**Task 4: List Members Who Registered in the Last 180 Days**:
+```sql
+SELECT * FROM members
+WHERE reg_date >= (CURRENT_DATE- INTERVAL '180 Days');
+```
+**Task 5: List Employees with Their Branch Manager's Name and their branch details**:
+```sql
+SELECT * FROM branch;
+
+SELECT e.*, b.manager_id,e1.emp_name AS manager_name,
+		b.branch_address,b.contact_no
+FROM employees e
+JOIN branch b
+ON e.branch_id=b.branch_id
+JOIN employees e1
+ON e1.emp_id=b.manager_id;
+```
+**Task 6: Retrieve the List of Books Not Yet Returned**
+```sql
+SELECT * FROM issued_status ist
+LEFT JOIN return_status rs
+ON rs.issued_id=ist.issued_id
+WHERE return_id IS NULL;
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
