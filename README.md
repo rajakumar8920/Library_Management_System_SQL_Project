@@ -80,7 +80,17 @@ CREATE TABLE return_status(
 		return_book_isbn VARCHAR(20)
 );
 ```
-  
+
+**Task 1: List Member_id and Member_Name Who Have Issued More Than One Book**
+```sql
+SELECT ist.issued_member_id, m.member_name,
+		COUNT(ist.issued_id) AS no_of_books_issued
+FROM members m
+JOIN issued_status ist
+ON ist.issued_member_id=m.member_id
+GROUP BY 1,2
+HAVING COUNT(ist.issued_id) > 2;
+```
 
 
 
