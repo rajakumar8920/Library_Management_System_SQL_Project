@@ -184,13 +184,19 @@ BEGIN
 
 END;
 $$
+-- TESTING FUNCTION update_books_status
+
+SELECT * FROM issued_status
+WHERE issued_book_isbn='978-0-7432-7357-1';
+
+SELECT * FROM books
+WHERE isbn='978-0-7432-7357-1';
+
+SELECT * FROM return_status
+WHERE issued_id='IS136';
 
 CALL update_book_status('RS165','IS136','Good');
 ```
-
-
-
-
 
 
 
