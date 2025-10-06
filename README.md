@@ -225,7 +225,7 @@ SELECT * FROM members
 WHERE member_id IN (
 			SELECT issued_member_id
 			FROM issued_status
-			WHERE issued_date >= (CURRENT_DATE - INTERVAL '6 months'))
+			WHERE issued_date >= (CURRENT_DATE - INTERVAL '2 months'))
 );
 
 SELECT * FROM active_members;
@@ -308,7 +308,26 @@ Description: Write a CTAS query to create a new table that lists each member and
     Member ID
     Number of overdue books
     Total fines
+```sql
+CREATE TABLE books_overdue_details AS (
+SELECT m.member_name, 
+		b.book_title,
+		COUNT(ist.issued_id) AS no_of_books,
+		(CURRENT_DATE-issued_date) AS over_due_days,
+		(CURRENT_DATE-issued_date)*0.50 AS total_fine	
+FROM members m
+JOIN issued_status ist
+ON m.member_id=ist.issued_member_id
+LEFT JOIN return_status rs
+ON rs.issued_id=ist.issued_id
+JOIN books b
+ON b.isbn=ist.issued_book_isbn
+WHERE rs.return_id IS NULL AND (CURRENT_DATE-issued_date)>30
+GROUP BY m.member_name,b.book_title,ist.issued_date
+);
 
+SELECT * FROM books_overdue_details;
+```
 ## Conclusion
 
 This project demonstrates the application of SQL skills in creating and managing a library management system. It includes database setup, data manipulation, and advanced querying, providing a solid foundation for data management and analysis.
