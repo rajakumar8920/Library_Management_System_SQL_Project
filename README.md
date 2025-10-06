@@ -242,15 +242,15 @@ GROUP BY 1,2,4
 ORDER BY books_processed DESC
 LIMIT 3;
 ```
-**Task 12: Stored Procedure**
-Objective:
-Create a stored procedure to manage the status of books in a library system.
-Description:
-Write a stored procedure that updates the status of a book in the library based on its issuance. The procedure should function as follows:
-The stored procedure should take the book_id as an input parameter.
-The procedure should first check if the book is available (status = 'yes').
-If the book is available, it should be issued, and the status in the books table should be updated to 'no'.
-If the book is not available (status = 'no'), the procedure should return an error message indicating that the book is currently not available.
+**Task 12: Stored Procedure**                                                                                                                                                                                    
+Objective:                                                                                                                                                                                                       
+Create a stored procedure to manage the status of books in a library system.                                                                                                                                     
+Description:                                                                                                                                                                                                     
+Write a stored procedure that updates the status of a book in the library based on its issuance. The procedure should function as follows:                                                                       
+The stored procedure should take the book_id as an input parameter.                                                                                                                                              
+The procedure should first check if the book is available (status = 'yes').                                                                                                                                      
+If the book is available, it should be issued, and the status in the books table should be updated to 'no'.                                                                                                      
+If the book is not available (status = 'no'), the procedure should return an error message indicating that the book is currently not available.                                                                  
 ```sql
 CREATE OR REPLACE PROCEDURE issue_of_book(p_issued_id VARCHAR(10),
 											p_issued_member_id VARCHAR(10),
@@ -298,10 +298,10 @@ WHERE isbn='978-0-553-29698-2';
 SELECT * FROM issued_status
 WHERE issued_id='IS175';
 ```
-**Task 13: Create Table As Select (CTAS)**
-Objective: Create a CTAS (Create Table As Select) query to identify overdue books and calculate fines.
+**Task 13: Create Table As Select (CTAS)**                                                                                                                                                                       
+Objective: Create a CTAS (Create Table As Select) query to identify overdue books and calculate fines.                                                                                                           
 
-Description: Write a CTAS query to create a new table that lists each member and the books they have issued but not returned within 30 days. The table should include:
+Description: Write a CTAS query to create a new table that lists each member and the books they have issued but not returned within 30 days. The table should include:                                           
     The number of overdue books.
     The total fines, with each day's fine calculated at $0.50.
     The number of books issued by each member.
