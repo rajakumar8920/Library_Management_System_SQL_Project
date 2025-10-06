@@ -242,16 +242,78 @@ GROUP BY 1,2,4
 ORDER BY books_processed DESC
 LIMIT 3;
 ```
+**Task 12: Stored Procedure**
+Objective:
+Create a stored procedure to manage the status of books in a library system.
+Description:
+Write a stored procedure that updates the status of a book in the library based on its issuance. The procedure should function as follows:
+The stored procedure should take the book_id as an input parameter.
+The procedure should first check if the book is available (status = 'yes').
+If the book is available, it should be issued, and the status in the books table should be updated to 'no'.
+If the book is not available (status = 'no'), the procedure should return an error message indicating that the book is currently not available.
+```sql
+CREATE OR REPLACE PROCEDURE issue_of_book(p_issued_id VARCHAR(10),
+											p_issued_member_id VARCHAR(10),
+											p_issued_book_isbn VARCHAR(20),
+											p_issued_emp_id VARCHAR(10))
+LANGUAGE plpgsql
+AS $$
+DECLARE
+		v_status VARCHAR(10);
 
+BEGIN
+	SELECT status 
+			INTO v_status
+	FROM books
+	WHERE isbn=p_issued_book_isbn;
 
+	IF v_status='yes' THEN
+			INSERT INTO issued_status(issued_id,issued_member_id,issued_book_id,
+										issued_date,issued_book_isbn,issued_emp_id)
+			VALUES (p_issued_id,p_issued_member_id,NULL,CURRENT_DATE,
+					p_issued_book_isbn,p_issued_emp_id);
 
+			UPDATE books
+			SET status='no'
+			WHERE isbn=p_issued_book_isbn;
 
+			RAISE NOTICE 'Record added Successfully for book isbn :%',p_issued_book_isbn;
+	ELSE 
+		RAISE NOTICE 'Sorry the book cannot be issued as it is not available';
 
+	END IF;
+END;
+$$
 
+-- Testing the Function
+-- 978-0-553-29698-2 - 'yes'
+-- 978-0-307-58837-1 - 'no'
 
+CALL issue_of_book('IS175','C108','978-0-553-29698-2','E105');
+CALL issue_of_book('IS156','C106','978-0-307-58837-1','E104');
 
+SELECT * FROM books
+WHERE isbn='978-0-553-29698-2';
 
+SELECT * FROM issued_status
+WHERE issued_id='IS175';
+```
+**Task 13: Create Table As Select (CTAS)**
+Objective: Create a CTAS (Create Table As Select) query to identify overdue books and calculate fines.
 
+Description: Write a CTAS query to create a new table that lists each member and the books they have issued but not returned within 30 days. The table should include:
+    The number of overdue books.
+    The total fines, with each day's fine calculated at $0.50.
+    The number of books issued by each member.
+    The resulting table should show:
+    Member ID
+    Number of overdue books
+    Total fines
 
+## Conclusion
+
+This project demonstrates the application of SQL skills in creating and managing a library management system. It includes database setup, data manipulation, and advanced querying, providing a solid foundation for data management and analysis.
+
+Thank you !
 
 
