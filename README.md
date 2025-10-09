@@ -336,6 +336,9 @@ This project demonstrates the application of SQL skills in creating and managing
 For Detailed Written SQL Queries which I have not mentioned in README file is given in the sql file named 'library_system_db_all_sql_queries'.
 Kindly must visit this sql file which I provided above in Files Section to know my sql project detailed queries.
 
+Connect with me on LinkedIn :
+- **LinkedIn**: [Connect with me professionally](https://www.linkedin.com/in/rajakumar-dataanalysis/).
+
 Thank you !
 
 
